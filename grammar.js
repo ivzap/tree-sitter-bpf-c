@@ -7,11 +7,10 @@
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 
-module.exports = grammar({
+const C = require('tree-sitter-c/grammar');
+
+module.exports = grammar(C, {
   name: "bpf_c",
 
-  rules: {
-    // TODO: add the actual grammar rules
-    source_file: $ => "hello"
-  }
+  rules: {}
 });
