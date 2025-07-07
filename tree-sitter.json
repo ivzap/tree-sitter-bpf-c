@@ -1,0 +1,39 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "bpf_c",
+      "camelcase": "BpfC",
+      "title": "BPF-C",
+      "scope": "source.bpf_c",
+      "file-types": [
+        "bpf.c"
+      ],
+      "injection-regex": "^bpf_c$",
+      "class-name": "TreeSitterBpfC"
+    }
+  ],
+  "metadata": {
+    "version": "0.0.0",
+    "license": "MIT",
+    "description": "tree-sitter grammar for BPF C",
+    "authors": [
+      {
+        "name": "Daniel Müller",
+        "email": "deso@posteo.net"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/d-e-s-o/tree-sitter-bpf-c"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": false,
+    "node": false,
+    "python": false,
+    "rust": true,
+    "swift": false,
+    "zig": false
+  }
+}
