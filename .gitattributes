@@ -1,5 +1,7 @@
 * text=auto eol=lf
 
+test/corpus/crlf.txt text eol=crlf
+
 # Generated source files
 src/*.json linguist-generated
 src/parser.c linguist-generated
