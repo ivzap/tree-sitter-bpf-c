@@ -1,0 +1,73 @@
+================================================================================
+Tracepoint BPF program with SEC(...)
+================================================================================
+
+SEC("tp_btf/sched_switch")
+int handle__sched_switch(void) {
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    (sec_specifier
+      value: (string_literal (string_content)))
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list
+        (parameter_declaration
+          type: (primitive_type))))
+    body: (compound_statement)))
+
+================================================================================
+BPF program with SEC(...) macro edition
+================================================================================
+SEC("kprobe/cap_capable")
+
+int BPF_KPROBE(kprobe__cap_capable, const struct cred *cred,
+               struct user_namespace *targ_ns, int cap, int cap_opt) {
+	return record_cap(ctx, cred, targ_ns, cap, cap_opt);
+
+}
+
+--------------------------------------------------------------------------------
+
+(translation_unit
+  (function_definition
+    (sec_specifier
+      (string_literal
+        (string_content)))
+    (primitive_type)
+    (function_declarator
+      (identifier)
+      (parameter_list
+        (parameter_declaration
+          (type_identifier))
+        (parameter_declaration
+          (type_qualifier)
+          (struct_specifier
+            (type_identifier))
+          (pointer_declarator
+            (identifier)))
+        (parameter_declaration
+          (struct_specifier
+            (type_identifier))
+          (pointer_declarator
+            (identifier)))
+        (parameter_declaration
+          (primitive_type)
+          (identifier))
+        (parameter_declaration
+          (primitive_type)
+          (identifier))))
+    (compound_statement
+      (return_statement
+        (call_expression
+          (identifier)
+          (argument_list
+            (identifier)
+            (identifier)
+            (identifier)
+            (identifier)
+            (identifier)))))))

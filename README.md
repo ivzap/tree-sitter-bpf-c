@@ -4,4 +4,6 @@
 tree-sitter-bpf-c
 =================
 
+- [Changelog](CHANGELOG.md)
+
 BPF C grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter).

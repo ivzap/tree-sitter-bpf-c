@@ -12,5 +12,21 @@ const C = require('tree-sitter-c/grammar');
 module.exports = grammar(C, {
   name: "bpf_c",
 
-  rules: {}
+  rules: {
+    sec_specifier: $ => seq(
+      'SEC',
+      '(',
+      field('value', $.string_literal),
+      ')'
+    ),
+
+    function_definition: $ => seq(
+      optional($.sec_specifier),
+      optional($.ms_call_modifier),
+      $._declaration_specifiers,
+      optional($.ms_call_modifier),
+      field('declarator', $._declarator),
+      field('body', $.compound_statement),
+    ),
+  }
 });
