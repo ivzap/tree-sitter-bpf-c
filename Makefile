@@ -4,7 +4,7 @@ endif
 
 LANGUAGE_NAME := tree-sitter-bpf-c
 HOMEPAGE_URL := https://github.com/d-e-s-o/tree-sitter-bpf-c
-VERSION := 0.2.0
+VERSION := 0.2.1
 
 # repository
 SRC_DIR := src

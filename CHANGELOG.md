@@ -1,5 +1,5 @@
-Unreleased
-----------
+0.2.1
+-----
 - Added support for `SEC(...)` annotated function definitions
 
 
