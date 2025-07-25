@@ -71,3 +71,61 @@ int BPF_KPROBE(kprobe__cap_capable, const struct cred *cred,
             (identifier)
             (identifier)
             (identifier)))))))
+
+
+
+==================
+uint macro bad usage
+==================
+
+struct{
+    __uint(a,sizeof(b));
+    __uint(b,sizeof(c));
+    __type(d,sizeof(c));
+} name;
+---
+(translation_unit
+      (declaration
+        (struct_specifier
+          (field_declaration_list
+            (uint_bpf_macro
+              (identifier)
+              (sizeof_expression
+                (parenthesized_expression
+                  (identifier))))
+            (uint_bpf_macro
+              (identifier)
+              (sizeof_expression
+                (parenthesized_expression
+                  (identifier))))
+            (field_declaration
+              (macro_type_specifier
+                (identifier)
+                (type_descriptor
+                  (type_identifier))
+                (ERROR
+                  (identifier)))
+              (ERROR))))
+        (identifier)))
+
+==================
+uint macro good usage
+==================
+
+struct{
+    __type(b,int);
+} name;
+---
+(translation_unit
+      (declaration
+        (struct_specifier
+          (field_declaration_list
+            (field_declaration
+              (macro_type_specifier
+                (identifier)
+                (ERROR
+                  (type_descriptor
+                    (type_identifier)))
+                (type_descriptor
+                  (primitive_type))))))
+        (identifier)))
