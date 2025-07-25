@@ -1620,6 +1620,10 @@
           "named": true
         },
         {
+          "type": "preproc_call_expression",
+          "named": true
+        },
+        {
           "type": "preproc_def",
           "named": true
         },
@@ -2690,6 +2694,44 @@
     }
   },
   {
+    "type": "preproc_call_expression",
+    "named": true,
+    "fields": {
+      "macro_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "__type",
+            "named": false
+          },
+          {
+            "type": "__uint",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "type_descriptor",
+          "named": true
+        },
+        {
+          "type": "type_specifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "preproc_def",
     "named": true,
     "fields": {
@@ -2820,6 +2862,10 @@
           "named": true
         },
         {
+          "type": "preproc_call_expression",
+          "named": true
+        },
+        {
           "type": "preproc_def",
           "named": true
         },
@@ -2916,6 +2962,10 @@
           "named": true
         },
         {
+          "type": "preproc_call_expression",
+          "named": true
+        },
+        {
           "type": "preproc_def",
           "named": true
         },
@@ -2980,6 +3030,10 @@
         },
         {
           "type": "preproc_call",
+          "named": true
+        },
+        {
+          "type": "preproc_call_expression",
           "named": true
         },
         {
@@ -3143,6 +3197,10 @@
           "named": true
         },
         {
+          "type": "preproc_call_expression",
+          "named": true
+        },
+        {
           "type": "preproc_def",
           "named": true
         },
@@ -3236,6 +3294,10 @@
         },
         {
           "type": "preproc_call",
+          "named": true
+        },
+        {
+          "type": "preproc_call_expression",
           "named": true
         },
         {
@@ -4349,6 +4411,14 @@
   },
   {
     "type": "__try",
+    "named": false
+  },
+  {
+    "type": "__type",
+    "named": false
+  },
+  {
+    "type": "__uint",
     "named": false
   },
   {
