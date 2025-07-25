@@ -71,3 +71,140 @@ int BPF_KPROBE(kprobe__cap_capable, const struct cred *cred,
             (identifier)
             (identifier)
             (identifier)))))))
+
+================================================================================
+__uint macro with sizeof operator and (type identifier) usage
+================================================================================
+
+struct{
+  __uint(a,sizeof(struct bpf_sock_ops));
+  int b;
+  __uint(a, b);
+  __type(b, struct bpf_sock_ops);
+  int b;
+};
+
+--------------------------------------------------------------------------------
+(translation_unit
+      (struct_specifier
+        (field_declaration_list
+          (preproc_call_expression
+            (identifier)
+            (identifier)
+            (sizeof_expression
+              (type_descriptor
+                (struct_specifier
+                  (type_identifier)))))
+          (field_declaration
+            (primitive_type)
+            (field_identifier))
+          (preproc_call_expression
+            (identifier)
+            (identifier)
+            (identifier))
+          (preproc_call_expression
+            (identifier)
+            (identifier)
+            (struct_specifier
+              (type_identifier)))
+          (field_declaration
+            (primitive_type)
+            (field_identifier)))))
+
+================================================================================
+__uint macro with incorrect argument type
+================================================================================
+
+struct{
+  __uint(15, sizeof(struct bpf_sock_ops));
+  int b;
+  __uint(b, sizeof(a));
+} name;
+
+--------------------------------------------------------------------------------
+(translation_unit
+      (ERROR
+        (identifier)
+        (number_literal))
+      (expression_statement
+        (sizeof_expression
+          (type_descriptor
+            (struct_specifier
+              (type_identifier))))
+        (ERROR))
+      (declaration
+        (primitive_type)
+        (identifier))
+      (expression_statement
+        (call_expression
+          (identifier)
+          (argument_list
+            (identifier)
+            (sizeof_expression
+              (parenthesized_expression
+                (identifier))))))
+      (ERROR)
+      (type_identifier))
+
+================================================================================
+__type macro with incorrect argument type
+================================================================================
+
+struct{
+  __type(type, 123);
+  int b;
+} name;
+
+--------------------------------------------------------------------------------
+(translation_unit
+      (ERROR
+        (identifier)
+        (identifier)
+        (ERROR
+          (number_literal)
+          (primitive_type)
+          (identifier))
+        (identifier))
+      (expression_statement))
+
+================================================================================
+__uint macro with hard math
+================================================================================
+int __uint = 16;
+struct{
+  __uint(a, 1 - 15^23 + 38 * 3/2 & 14 | 15);
+  int b;
+} name;
+
+--------------------------------------------------------------------------------
+(translation_unit
+      (declaration
+        (primitive_type)
+        (init_declarator
+          (identifier)
+          (number_literal)))
+      (declaration
+        (struct_specifier
+          (field_declaration_list
+            (preproc_call_expression
+              (identifier)
+              (identifier)
+              (binary_expression
+                (binary_expression
+                  (binary_expression
+                    (number_literal)
+                    (number_literal))
+                  (binary_expression
+                    (binary_expression
+                      (number_literal)
+                      (binary_expression
+                        (binary_expression
+                          (number_literal)
+                          (number_literal))
+                        (number_literal)))
+                    (number_literal)))
+                (number_literal)))
+            (field_declaration
+              (primitive_type)
+              (field_identifier))))
+        (identifier)))

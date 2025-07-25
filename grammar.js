@@ -28,5 +28,49 @@ module.exports = grammar(C, {
       field('declarator', $._declarator),
       field('body', $.compound_statement),
     ),
+    
+    _field_declaration_list_item: $ => choice(
+      alias(
+        choice(
+          $.type_field_declarator_macro,
+          $.uint_field_declarator_macro
+        ),
+        $.preproc_call_expression
+      ),
+      $.field_declaration,
+      $.preproc_def,
+      $.preproc_function_def,
+      $.preproc_call,
+      alias($.preproc_if_in_field_declaration_list, $.preproc_if),
+      alias($.preproc_ifdef_in_field_declaration_list, $.preproc_ifdef),
+    ),
+    
+    uint_field_declarator_macro: $ => choice(
+      seq(
+        alias(field('macro_name', '__uint'), $.identifier),
+        '(',
+        field('arg1', $.identifier),
+        ',',
+        field('arg2', choice($.type_descriptor,$.expression)),
+        ')',
+        ';'
+      )
+    ),
+
+    // This can produce a conflict so in such a case prec will resolve the issue
+    // set prec to 0 to see conflicts
+    type_field_declarator_macro: $ => prec(1,
+      choice(
+        seq(
+          alias(field('macro_name', '__type'), $.identifier),
+          '(',
+          field('arg1', $.identifier),
+          ',',
+          field('arg2', choice($.type_descriptor, $.type_specifier, $.identifier)),
+          ')',
+          ';'
+        )
+      )
+    ),
   }
 });
